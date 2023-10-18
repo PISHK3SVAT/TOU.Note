@@ -14,6 +14,15 @@ namespace TOU.Note.Services
             _db = db;
         }
 
+        public List<NoteDto> GetAll(int page=1,int size=10)
+        {
+            var notes=_db.Notes
+                .ToPage(page,size)
+                .Select(n => NoteMapper.ToNoteDto(n))
+                .ToList();
+            return notes;
+        }
+
         public async Task<NoteServiceResult<NoteDto>> GetAsync(Guid id)
         {
             var note =await _db.Notes.FirstOrDefaultAsync(n => n.Id==id);
@@ -31,32 +40,70 @@ namespace TOU.Note.Services
                 Data = NoteMapper.ToNoteDto(note)
             };
         }
+
+        public async Task<NoteServiceResult> Create(CreateNoteDto dto)
+        {
+            //validation
+            var newNote = NoteMapper.CreateNoteDtoToNote(dto);
+            try
+            {
+                await _db.Notes.AddAsync(newNote);
+                var saveRes =await _db.SaveChangesAsync();
+                if (saveRes==0)
+                {
+                    return new NoteServiceResult
+                    {
+                        IsSuccess = false,
+                        StatusCode = ServiceResultStatusCode.NotSavedError,
+                    };
+                }
+                return new NoteServiceResult
+                {
+                    IsSuccess = true,
+                    StatusCode = ServiceResultStatusCode.Ok,
+                };
+
+            }
+            catch (Exception)
+            {
+                return new NoteServiceResult
+                {
+                    IsSuccess = false,
+                    StatusCode = ServiceResultStatusCode.UnknownExceptionError,
+                };
+            }
+        }
     }
 
     public class NoteDto
     {
-        public NoteDto(string title, string body)
-        {
-            Title = title;
-            Body = body;
-        }
 
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public required string Title { get; set; }
+        public required string Body { get; set; }
     }
 
-    public class NoteServiceResult<T>
+    public class CreateNoteDto
+    {
+        public required string Title { get; set; }
+        public required string Body { get; set; }
+    }
+
+    public class NoteServiceResult
     {
         public bool IsSuccess { get; set; }
         public ServiceResultStatusCode StatusCode { get; set; }
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public T Data { get; set; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    }
+
+    public class NoteServiceResult<T>: NoteServiceResult
+    {
+        public T? Data { get; set; }
     }
 
     public enum ServiceResultStatusCode
     {
         Ok=0,
         NotFound=-1,
+        NotSavedError=-60,
+        UnknownExceptionError=-100,
     }
 }
