@@ -1,0 +1,24 @@
+@font-face {
+    font-family:"RobotoFlex-Regular" ;
+    src: url("../font/RobotoFlex-Regular.ttf");
+}
+@font-face {
+    font-family:"Shabnam-Bold" ;
+    src: url("../font/Shabnam-Bold.ttf");
+}
+@font-face {
+    font-family:"Shabnam-Light" ;
+    src: url("../font/Shabnam-Light.ttf");
+}
+@font-face {
+    font-family:"Shabnam-Medium" ;
+    src: url("../font/Shabnam-Medium.ttf");
+}
+@font-face {
+    font-family:"Shabnam-Thin" ;
+    src: url("../font/Shabnam-Thin.ttf");
+}
+@font-face {
+    font-family:"Shabnam" ;
+    src: url("../font/Shabnam.ttf");
+}
