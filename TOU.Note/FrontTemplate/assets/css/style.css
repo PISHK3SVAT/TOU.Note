@@ -1,0 +1,87 @@
+:root{
+    --primary-color:#f9d72f;
+    --primary-hover-color:rgba(249, 215, 47, 0.80);
+    --background-color:#e6e6e6;
+    --text-color:#353434;
+    --task-color:#f7f7f7;
+    --success-color:#36d39a;
+    --success-hover-color:rgba(54, 211, 154, 0.80);
+    --warning-color:#fbbe23;
+    --warning-hover-color:rgba(251, 190, 35, 0.80);
+    --error-color:#f87171;
+    --error-hover-color:rgba(248, 113, 113, 0.80);
+    --nutural-color1:#f0eff5;
+    --nutural-color2:#ededed;
+    --nutural-color3:#cbcbcb;
+    --nutural-color3:#757575;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color:var(--background-color);
+    font-family:"RobotoFlex-Regular", Arial, Helvetica, sans-serif;
+   
+}
+.dashboard{
+    background-color: var(--task-color);
+    height: 600px;
+    width:233px ;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+}
+.logo{
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    margin-top: 32px;
+    color: var(--text-color);
+}
+.dashboard-buttons{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+
+}
+.dashboard-buttons button{
+    padding: 10px 24px;
+    cursor: pointer;
+    border: none;
+    width: 233px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 140%;
+    background:none;
+    border-bottom: 1px solid var(--nutural-color2);
+}
+.dashboard-buttons button img{
+    margin-right: 14px;
+}
+.dashboard-buttons button:hover{
+    background-color: var(--primary-hover-color);
+}
+.about-us{
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+.about-us a{
+    color: var(--text-color);
+    text-decoration: none;
+}
+.about-us a:hover{
+    color: var(--nutural-color3);
+}
